@@ -35,8 +35,7 @@
             background-color: var(--bg-light);
             color: var(--text-main);
             display: flex;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
         .sidebar {
@@ -47,6 +46,7 @@
             flex-direction: column;
             padding: 24px 16px;
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         .brand-logo {
@@ -99,6 +99,7 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            width: 100%;
         }
 
         .header-bar {
@@ -108,6 +109,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .search-box {
@@ -116,6 +119,7 @@
             border-radius: 20px;
             padding: 8px 16px;
             width: 320px;
+            max-width: 100%;
             font-size: 13px;
         }
 
@@ -157,26 +161,15 @@
             margin-bottom: 20px;
         }
 
-        .grid-2 {
+        .grid-2, .grid-3, .grid-1-2 {
             display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .grid-1-2 {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-1-2 { grid-template-columns: 1fr 2fr; }
 
         .card {
             background: var(--card-bg);
@@ -221,10 +214,16 @@
             color: var(--text-muted);
         }
 
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
+            min-width: 500px;
         }
 
         th, td {
@@ -270,6 +269,7 @@
             display: flex;
             gap: 8px;
             margin-top: 12px;
+            flex-wrap: wrap;
         }
 
         .evidence-quote {
@@ -289,6 +289,62 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* تنسيقات التجاوب مع شاشات الجوال والهواتف المحمولة */
+        @media (max-width: 850px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 16px;
+            }
+
+            .brand-sub {
+                margin-bottom: 12px;
+            }
+
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 6px;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            .nav-item.active {
+                border-right: none;
+                border-bottom: 3px solid var(--medical-blue);
+            }
+
+            .header-bar {
+                padding: 12px 16px;
+            }
+
+            .content-body {
+                padding: 16px;
+            }
+
+            .grid-2, .grid-3, .grid-1-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-nav {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .page-navigation-footer {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -363,30 +419,32 @@
 
                 <div class="card">
                     <div class="card-header">أحدث تحديثات الوثائق والأدلة</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>اسم الوثيقة</th>
-                                <th>تاريخ التحديث</th>
-                                <th>المسؤول</th>
-                                <th>الحالة</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>تقرير الدراسة الذاتية للبرنامج (SSRP.pdf)</td>
-                                <td>11 سبتمبر 2026</td>
-                                <td>د. سارة المنصور</td>
-                                <td><span class="badge badge-success">تم الفحص الدلالي</span></td>
-                            </tr>
-                            <tr>
-                                <td>تقرير مؤشرات الأداء السنوي (KPI_Report.pdf)</td>
-                                <td>10 سبتمبر 2026</td>
-                                <td>أ. أحمد فيصل</td>
-                                <td><span class="badge badge-warning">تنبيه حداثة</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>اسم الوثيقة</th>
+                                    <th>تاريخ التحديث</th>
+                                    <th>المسؤول</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>تقرير الدراسة الذاتية للبرنامج (SSRP.pdf)</td>
+                                    <td>11 سبتمبر 2026</td>
+                                    <td>د. سارة المنصور</td>
+                                    <td><span class="badge badge-success">تم الفحص الدلالي</span></td>
+                                </tr>
+                                <tr>
+                                    <td>تقرير مؤشرات الأداء السنوي (KPI_Report.pdf)</td>
+                                    <td>10 سبتمبر 2026</td>
+                                    <td>أ. أحمد فيصل</td>
+                                    <td><span class="badge badge-warning">تنبيه حداثة</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="page-navigation-footer">
@@ -448,55 +506,59 @@
                 <div class="grid-2">
                     <div class="card">
                         <div class="card-header">تنبيهات الفجوات بالأدلة</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>المعيار</th>
-                                    <th>حالة الدليل</th>
-                                    <th>الإجراء المطلوب</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>المعيار 3.1 (التعليم)</td>
-                                    <td><span class="badge badge-danger">دليل مفقود</span></td>
-                                    <td>إرفاق عينات استطلاع رأي الطلبة</td>
-                                </tr>
-                                <tr>
-                                    <td>المعيار 2.3 (الكادر)</td>
-                                    <td><span class="badge badge-warning">تغطية غير كافية</span></td>
-                                    <td>استكمال السير الذاتية الحديثة</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>المعيار</th>
+                                        <th>حالة الدليل</th>
+                                        <th>الإجراء المطلوب</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>المعيار 3.1 (التعليم)</td>
+                                        <td><span class="badge badge-danger">دليل مفقود</span></td>
+                                        <td>إرفاق عينات استطلاع رأي الطلبة</td>
+                                    </tr>
+                                    <tr>
+                                        <td>المعيار 2.3 (الكادر)</td>
+                                        <td><span class="badge badge-warning">تغطية غير كافية</span></td>
+                                        <td>استكمال السير الذاتية الحديثة</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="card">
                         <div class="card-header">تحليل الاتساق والتعارض بين التقارير</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>نقطة البيانات</th>
-                                    <th>التقرير السنوي (2024)</th>
-                                    <th>تقرير الدراسة الذاتية</th>
-                                    <th>حالة الاتساق</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>نسبة توظيف الخريجين</td>
-                                    <td>75%</td>
-                                    <td>88%</td>
-                                    <td><span class="badge badge-danger">تعارض بيانات</span></td>
-                                </tr>
-                                <tr>
-                                    <td>عدد أعضاء التدريس</td>
-                                    <td>52 عضو</td>
-                                    <td>52 عضو</td>
-                                    <td><span class="badge badge-success">متسق تماماً</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>نقطة البيانات</th>
+                                        <th>التقرير السنوي (2024)</th>
+                                        <th>تقرير الدراسة الذاتية</th>
+                                        <th>حالة الاتساق</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>نسبة توظيف الخريجين</td>
+                                        <td>75%</td>
+                                        <td>88%</td>
+                                        <td><span class="badge badge-danger">تعارض بيانات</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>عدد أعضاء التدريس</td>
+                                        <td>52 عضو</td>
+                                        <td>52 عضو</td>
+                                        <td><span class="badge badge-success">متسق تماماً</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -535,30 +597,32 @@
 
                 <div class="card">
                     <div class="card-header">سجل التدقيق والمراجعة البشرية (Audit Trail)</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>التاريخ والوقت</th>
-                                <th>المستخدم المسؤول</th>
-                                <th>الإجراء المتخذ</th>
-                                <th>المعيار / الوثيقة</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2026-09-11 | 14:15</td>
-                                <td>د. سارة المنصور</td>
-                                <td><span class="badge badge-success">اعتماد دليل</span></td>
-                                <td>تقرير الدراسة الذاتية (معيار 1)</td>
-                            </tr>
-                            <tr>
-                                <td>2026-09-11 | 13:30</td>
-                                <td>أ. أحمد فيصل</td>
-                                <td><span class="badge badge-danger">رفض دليل</span></td>
-                                <td>تقرير مؤشرات الأداء (معيار 2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>التاريخ والوقت</th>
+                                    <th>المستخدم المسؤول</th>
+                                    <th>الإجراء المتخذ</th>
+                                    <th>المعيار / الوثيقة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2026-09-11 | 14:15</td>
+                                    <td>د. سارة المنصور</td>
+                                    <td><span class="badge badge-success">اعتماد دليل</span></td>
+                                    <td>تقرير الدراسة الذاتية (معيار 1)</td>
+                                </tr>
+                                <tr>
+                                    <td>2026-09-11 | 13:30</td>
+                                    <td>أ. أحمد فيصل</td>
+                                    <td><span class="badge badge-danger">رفض دليل</span></td>
+                                    <td>تقرير مؤشرات الأداء (معيار 2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="page-navigation-footer">
@@ -577,6 +641,7 @@
             
             document.getElementById(tabId).classList.add('active');
             document.getElementById('nav-' + tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
